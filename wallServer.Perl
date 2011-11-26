@@ -89,27 +89,6 @@ my $serial;
 
 	while( 1 )
 	{
-#		foreach my $socket ($select->has_exception(1))
-#		{
-#			if( $socket == $bindSocket )
-#			{
-#					warn localtime(time).' bin socket exception';
-#			}
-#			else
-#			{
-#				my $host = undef;
-#				my $port = undef;
-#				my $lport = undef;
-#				eval { $host	= $socket->peerhost(); $port	= $socket->peerport();$lport	= $socket->sockport(); };
-#			
-#				if($@)
-#				{
-#					warn $@;
-#				}
-#				warn localtime(time).' socket exception';
-#			}
-#		}
-
 		foreach my $socket ($select->can_read(1))
 		{
 			if( $socket == $bindSocket )								#	if the socket that is ready is the bindSocket a new Connection has occurred 
@@ -276,7 +255,6 @@ sub handlerequest($$$$)
 	my $data = shift;
 	
 	my $myPrio = $intermediaterequests{$host.':'.$port.':'.$lport}{'prio'};
-	
 	
 	#keep alive
 	if($data =~ /^00$/)
